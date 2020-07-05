@@ -1,6 +1,9 @@
 package com.rebwon.demojwt.domain;
 
+import java.util.Set;
+
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -16,6 +19,7 @@ import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -26,6 +30,7 @@ import lombok.Setter;
 	@UniqueConstraint(columnNames = "email")
 })
 @NoArgsConstructor @Builder
+@AllArgsConstructor
 @Getter @Setter @DynamicUpdate @DynamicInsert
 public class Account {
 	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -44,4 +49,7 @@ public class Account {
 	@Enumerated(EnumType.STRING)
 	private AuthProvider provider;
 	private String providerId;
+	@Enumerated(EnumType.STRING)
+	@ElementCollection
+	private Set<AccountRole> roles;
 }

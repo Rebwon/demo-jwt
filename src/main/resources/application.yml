@@ -8,7 +8,9 @@ spring:
       client:
         registration:
           google:
-
+            client-id: 723870635094-n7marjta2iqi3aild871lv9hm2lkfisp.apps.googleusercontent.com
+            client-secret: 0MhkSupCkcYXv0-o5JTw0_x3
+            scope: email,profile
 
 app:
   auth:

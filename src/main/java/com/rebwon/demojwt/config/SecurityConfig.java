@@ -17,6 +17,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import com.rebwon.demojwt.domain.AccountService;
 import com.rebwon.demojwt.security.RestAuthenticationEntryPoint;
 import com.rebwon.demojwt.security.TokenAuthenticationFilter;
+import com.rebwon.demojwt.security.oauth2.CustomOAuth2Service;
 import com.rebwon.demojwt.security.oauth2.HttpCookieOAuth2AuthorizationRequestRepository;
 import com.rebwon.demojwt.security.oauth2.OAuth2AuthenticationFailureHandler;
 import com.rebwon.demojwt.security.oauth2.OAuth2AuthenticationSuccessHandler;
@@ -34,16 +35,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	private AccountService accountService;
 
 	@Autowired
-	private CustomOAuth2UserService customOAuth2UserService;
+	private CustomOAuth2Service customOAuth2Service;
 
 	@Autowired
 	private OAuth2AuthenticationSuccessHandler oAuth2AuthenticationSuccessHandler;
 
 	@Autowired
 	private OAuth2AuthenticationFailureHandler oAuth2AuthenticationFailureHandler;
-
-	@Autowired
-	private HttpCookieOAuth2AuthorizationRequestRepository httpCookieOAuth2AuthorizationRequestRepository;
 
 	@Bean
 	public TokenAuthenticationFilter tokenAuthenticationFilter() {
@@ -110,7 +108,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 					.authorizationRequestRepository(cookieAuthorizationRequestRepository())
 					.and()
 				.userInfoEndpoint()
-					.userService(customOAuth2UserService)
+					.userService(customOAuth2Service)
 					.and()
 				.successHandler(oAuth2AuthenticationSuccessHandler)
 				.failureHandler(oAuth2AuthenticationFailureHandler);
